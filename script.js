@@ -41,7 +41,7 @@ achieve = Math.ceil(mission / budgetMonth);
     console.log('Цель будет достигнута за: ' + achieve +' месяцев' );
     
 
-let result = (budgetDay < 0) ? 'У вас высокий уровень дохода' :
+let result = (budgetDay < 0) ? 'Что то пошло не так' :
     (budgetDay > 1200) ? 'У вас высокий уровень дохода' :
     (budgetDay > 600 && budgetDay <= 1200) ? 'У вас средний уровень дохода' :
     'К сожалению у вас уровень дохода ниже среднего';
