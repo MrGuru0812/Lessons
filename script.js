@@ -1,3 +1,4 @@
+'use strict'
 let money,
     income = 'дипломы на заказ',
     addExpenses,
@@ -5,7 +6,12 @@ let money,
     mission = 100000,
     period = 6,
     budgetMonth,
-    achieve;
+    budgetDay,
+    achieve,
+    expenses1,
+    expenses2,
+    amount1,
+    amount2;
 
 money = prompt('Ваш месячный доход?');
 
@@ -43,7 +49,7 @@ achieve = Math.ceil(mission / budgetMonth);
 
 let result = (budgetDay < 0) ? 'Что то пошло не так' :
     (budgetDay > 1200) ? 'У вас высокий уровень дохода' :
-    (budgetDay > 600 && budgetDay <= 1200) ? 'У вас средний уровень дохода' :
+    (budgetDay >= 600 && budgetDay <= 1200) ? 'У вас средний уровень дохода' :
     'К сожалению у вас уровень дохода ниже среднего';
 
 console.log(result);
