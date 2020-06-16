@@ -7,6 +7,45 @@ let isString = function(n) {
 let isNumber = function(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 };
+const calculateButton = document.getElementById('start'),
+    buttonPlusIncome = document.getElementsByTagName('button')[0],
+    buttonPlusExpenses = document.getElementsByTagName('button')[1],
+    depositCheck = document.querySelector('#deposit-check'),
+    additionalIncomeItem = document.querySelectorAll('.additional_income-item'),
+    budgetDayValue = document.getElementsByClassName('budget_day-value'),
+    expensesMonthValue = document.getElementsByClassName('expenses_month-value'),
+    additionalIncomeValue = document.getElementsByClassName('additional_income-value'),
+    additionalExpensesValue = document.getElementsByClassName('additional_expenses-value'),
+    incomePeriodValue = document.getElementsByClassName('income_period-value'),
+    targetMonthValue = document.getElementsByClassName('target_month-value'),
+    expensesTitle = document.querySelector('.expenses-title'),
+    expensesAmount = document.querySelector('.expenses-amount'),
+    additionalExpensesItem = document.querySelector('.additional_expenses-item'),
+    depositAmount = document.querySelector('.deposit-amount'),
+    depositPercent = document.querySelector('.deposit-percent'),
+    targetAmount = document.querySelector('.target-amount'),
+    periodSelect = document.querySelector('.period-select');
+
+console.log(calculateButton);
+console.log(buttonPlusIncome);
+console.log(buttonPlusExpenses);
+console.log(depositCheck);
+console.log(additionalIncomeItem);
+console.log(budgetDayValue);
+console.log(expensesMonthValue);
+console.log(additionalIncomeValue);
+console.log(additionalExpensesValue);
+console.log(incomePeriodValue);
+console.log(targetMonthValue);
+console.log(expensesTitle);
+console.log(expensesAmount);
+console.log(additionalExpensesItem);
+console.log(depositAmount);
+console.log(depositPercent);
+console.log(targetAmount);
+console.log(periodSelect);
+
+
 
 let money,
     itemIncome,
