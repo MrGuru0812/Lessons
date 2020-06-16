@@ -60,7 +60,9 @@ let appData = {
         
         for(let i = 0; i < 2; i++) {
 
+            do{
             expenses = prompt('Введите обязательную статью расходов?');
+            } while(!isString(expenses))
             do{
             amount  = prompt('Во сколько это обойдется?');    
             
