@@ -185,11 +185,13 @@ let start = document.getElementById('start'),
         
         getAddExpenses: function(){ //добавляем расходы
             let addExpenses = additionalExpensesItem.value.split(',');
+            const _this = this;
             addExpenses.forEach(function(item){
             item = item.trim();
             
                 if(item !== '') {
-                    this.addExpenses.push(item);
+                    
+                    _this.addExpenses.push(item);
                 }
             });
         },
@@ -198,6 +200,7 @@ let start = document.getElementById('start'),
 
             additionalIncomeItem.forEach(function(item){
                 let itemValue = item.value.trim();
+                const _this = this;
                 if(itemValue !== '') {
                     this.addIncome.push(itemValue);
                 }
