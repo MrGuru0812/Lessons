@@ -131,18 +131,17 @@ let start = document.getElementById('start'),
                 if(itemExpenses !== '' && cashExpenses !== '') {
                     this.expenses[itemExpenses] = cashExpenses;
                 }
-            });
+            },this);
 
         },
         
         getIncome: function(){ //получаем доходы
         
             incomeItem.forEach(function(item){
-                const _this = this;
                 let itemIncome = item.querySelector('.income-title').value;
                 let cashIncome = item.querySelector('.income-amount').value;
                 if(itemIncome !== '' && cashIncome !== '') {
-                    _this.income[itemIncome] = cashIncome;
+                    appData.income[itemIncome] = cashIncome;
                 }
             });
             for(let key in this.income) {
@@ -152,15 +151,14 @@ let start = document.getElementById('start'),
         
         getAddExpenses: function(){ //добавляем расходы
             let addExpenses = additionalExpensesItem.value.split(',');
-            const _this = this;
             addExpenses.forEach(function(item){
             item = item.trim();
             
                 if(item !== '') {
                     
-                    _this.addExpenses.push(item);
+                    this.addExpenses.push(item);
                 }
-            });
+            }, this);
         },
         
         getAddIncome: function(){ //добавляем доходы
@@ -171,7 +169,7 @@ let start = document.getElementById('start'),
                 if(itemValue !== '') {
                     this.addIncome.push(itemValue);
                 }
-            });
+            }, this);
         },
         
         getExpensesMonth: function () {  //считаем расходы в месяц
