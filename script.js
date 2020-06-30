@@ -80,53 +80,19 @@ let start = document.getElementById('start'),
                     this.showResult();
                 }
         },
-        
-        cancel: function() { // возвращает программу в исходное состояние
-            start.style.display = 'block';
-            cancel.style.display = 'none';
-
-            let elem = document.querySelectorAll('input');
-
-            elem.forEach((item) => {
-                if (item.classList.contains('period-select') ) {
-                    item.value = 1;
-                    periodAmount.textContent = 1;
-                } else {
-                    item.removeAttribute('readonly', true);
-                    item.value = '';
-                }
-                
-                });
-
-                for(let i = 1; i < incomeItem.length; i++ ) {
-
-                if(incomeItem.length > 1){
-                    incomeItem[i].remove();
-                    incomePlus.style.display ='block';
-                }
-                for(let i = 1; i < expensesItems.length; i++ ) {
-
-                if(expensesItems.length > 1){
-                    expensesItems[i].remove();
-                    expensesPlus.style.display ='block';
-                    }
-                }
-            }
-
-        },
     
         showResult: function() { // показывает результаты
-
+            const _this = this;
             budgetMonthValue.value = this.budgetMonth;
             budgetDayValue.value = this.budgetDay;
             expensesMonthValue.value = this.expensesMonth;
             additionalExpensesValue.value = this.addExpenses.join(', ');
             additionalIncomeValue.value = this.addIncome.join(', ');
             targetMonthValue.value = this.getTargetMonth();
-            incomePeriodValue.value = appData.calcPeriod();
+            incomePeriodValue.value = _this.calcPeriod();
             
-            let dinamicCalcValue = function() {
-                incomePeriodValue.value = appData.calcPeriod();
+            let dinamicCalcValue = function() { //динамическое изменеие накоплений за период
+                incomePeriodValue.value = _this.calcPeriod();
 
             }
 
@@ -163,7 +129,7 @@ let start = document.getElementById('start'),
                 let cashExpenses = item.querySelector('.expenses-amount').value;
                 
                 if(itemExpenses !== '' && cashExpenses !== '') {
-                    appData.expenses[itemExpenses] = cashExpenses;
+                    this.expenses[itemExpenses] = cashExpenses;
                 }
             });
 
@@ -172,10 +138,11 @@ let start = document.getElementById('start'),
         getIncome: function(){ //получаем доходы
         
             incomeItem.forEach(function(item){
+                const _this = this;
                 let itemIncome = item.querySelector('.income-title').value;
                 let cashIncome = item.querySelector('.income-amount').value;
                 if(itemIncome !== '' && cashIncome !== '') {
-                    appData.income[itemIncome] = cashIncome;
+                    _this.income[itemIncome] = cashIncome;
                 }
             });
             for(let key in this.income) {
@@ -200,7 +167,7 @@ let start = document.getElementById('start'),
 
             additionalIncomeItem.forEach(function(item){
                 let itemValue = item.value.trim();
-                const _this = this;
+                
                 if(itemValue !== '') {
                     this.addIncome.push(itemValue);
                 }
@@ -250,10 +217,57 @@ let start = document.getElementById('start'),
         calcPeriod: function(){ // вычисляем период
             return this.budgetMonth * periodSelect.value;
         },
+        cancel: function() { // возвращает программу в исходное состояние
+            start.style.display = 'block';
+            cancel.style.display = 'none';
+            
+            this.income = {}; //доход
+            this.incomeMonth = 0; // месячный доход
+            this.addIncome = []; // добавление дохода
+            this.expenses = {}; // расходы
+            this.addExpenses = []; // добавление расходов
+            this.deposit = false; // депозит
+            this.percentDeposit = 0; // процент депозита
+            this.moneyDeposit = 0; // деньги на депозите
+            this.budget = 0; // бюджет
+            this.budgetDay = 0; // бюджет в день
+            this.budgetMonth = 0; // бюджет в месяц
+            this.expensesMonth = 0; // расходы в месяц
+            
+            let elem = document.querySelectorAll('input');
+            console.log(elem);
+            
+            elem.forEach((item) => {
+                if (item.classList.contains('period-select') ) {
+                    item.value = 1;
+                    periodAmount.textContent = 1;
+                } else {
+                    item.removeAttribute('readonly', true);
+                    item.value = '';
+                }
+                
+            });
+
+            for(let i = 1; i < incomeItem.length; i++ ) {
+                if(incomeItem.length > 1){
+                    incomeItem[i].remove();
+                    incomePlus.style.display ='block';
+                }
+                for(let i = 1; i < expensesItems.length; i++ ) {
+                    if(expensesItems.length > 1){
+                        expensesItems[i].remove();
+                        expensesPlus.style.display ='block';
+                    }
+                }
+            
+            }
+        
+        },
 };
 
+
 start.addEventListener('click', appData.start.bind(appData));
-cancel.addEventListener('click', appData.cancel);
+cancel.addEventListener('click', appData.cancel.bind(appData));
 expensesPlus.addEventListener('click', appData.addExpensesBlock);
 incomePlus.addEventListener('click', appData.addIncomeBlock);
 periodSelect.addEventListener('input', appData.dinamicCalc);
