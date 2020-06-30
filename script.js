@@ -126,7 +126,7 @@ let start = document.getElementById('start'),
             incomePeriodValue.value = appData.calcPeriod();
             
             let dinamicCalcValue = function() {
-                incomePeriodValue.value = this.calcPeriod();
+                incomePeriodValue.value = appData.calcPeriod();
 
             }
 
