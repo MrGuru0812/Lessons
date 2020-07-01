@@ -252,8 +252,8 @@ AppData.prototype.cancel = function() { // возвращает программ
 
 };
 AppData.prototype.eventListeners = function() { // слушатели
-    start.addEventListener('click', this.start.bind(appData));
-    cancel.addEventListener('click', this.cancel.bind(appData));
+    start.addEventListener('click', this.start.bind(this));
+    cancel.addEventListener('click', this.cancel.bind(this));
     expensesPlus.addEventListener('click', this.addExpensesBlock);
     incomePlus.addEventListener('click', this.addIncomeBlock);
     periodSelect.addEventListener('input', this.dinamicCalc);
