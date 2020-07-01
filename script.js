@@ -67,7 +67,6 @@ AppData.prototype.start = function() {   //запускает программу
             item.setAttribute('readonly', true);
         
         });
-        
         this.budget = +salaryAmount.value;
         this.getExpenses();
         this.getIncome();
@@ -75,7 +74,7 @@ AppData.prototype.start = function() {   //запускает программу
         this.getAddExpenses();
         this.getAddIncome();
         this.getBudget();
-
+        
         this.showResult();
     }
 };
@@ -255,16 +254,15 @@ AppData.prototype.cancel = function() { // возвращает программ
     }
 
 };
-
-const appData = new AppData();
-
-
 AppData.prototype.eventListeners = function() { // слушатели
-    start.addEventListener('click', appData.start.bind(appData));
-    cancel.addEventListener('click', appData.cancel.bind(appData));
-    expensesPlus.addEventListener('click', appData.addExpensesBlock);
-    incomePlus.addEventListener('click', appData.addIncomeBlock);
-    periodSelect.addEventListener('input', appData.dinamicCalc);
+    start.addEventListener('click', this.start.bind(appData));
+    cancel.addEventListener('click', this.cancel.bind(appData));
+    expensesPlus.addEventListener('click', this.addExpensesBlock);
+    incomePlus.addEventListener('click', this.addIncomeBlock);
+    periodSelect.addEventListener('input', this.dinamicCalc);
 };
 
-AppData.prototype.eventListeners();
+const appData = new AppData();
+appData.eventListeners();
+
+
