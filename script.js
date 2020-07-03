@@ -82,8 +82,8 @@ class AppData {
                 this.showResult();
             }
         };
-
-        AppData.prototype.showResult = function() { // показывает результаты
+    }
+        showResult() { // показывает результаты
             const _this = this;
             budgetMonthValue.value = this.budgetMonth;
             budgetDayValue.value = this.budgetDay;
@@ -103,7 +103,7 @@ class AppData {
 
         };
 
-        AppData.prototype.addExpensesBlock = function() { // блок добавления расходов
+        addExpensesBlock() { // блок добавления расходов
             let cloneExpensesItem  = expensesItems[0].cloneNode(true);
             expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPlus);
             expensesItems = document.querySelectorAll('.expenses-items');
@@ -113,7 +113,7 @@ class AppData {
             }
         };
 
-        AppData.prototype.addIncomeBlock = function() { // блок добавления доходов
+        addIncomeBlock () { // блок добавления доходов
             let  cloneIncomeItems = incomeItem[0].cloneNode(true);
             incomeItem[0].parentNode.insertBefore(cloneIncomeItems, incomePlus);
             incomeItem = document.querySelectorAll('.income-items');
@@ -123,7 +123,7 @@ class AppData {
             }
         };
 
-        AppData.prototype.getExpenses = function() {  //получаем расходы 
+        getExpenses() {  //получаем расходы 
             expensesItems.forEach((item) => {
                 let itemExpenses = item.querySelector('.expenses-title').value;
                 let cashExpenses = item.querySelector('.expenses-amount').value;
@@ -133,7 +133,7 @@ class AppData {
                 }
             });
         };
-        AppData.prototype.getIncome = function() { //получаем доходы
+        getIncome() { //получаем доходы
             incomeItem.forEach((item) => {
                 let itemIncome = item.querySelector('.income-title').value;
                 let cashIncome = item.querySelector('.income-amount').value;
@@ -146,7 +146,7 @@ class AppData {
             }
         };
 
-        AppData.prototype.getAddExpenses = function() { //добавляем расходы
+        getAddExpenses() { //добавляем расходы
             let addExpenses = additionalExpensesItem.value.split(',');
             addExpenses.forEach((item) => {
             item = item.trim();
@@ -156,7 +156,7 @@ class AppData {
             });
         };
 
-        AppData.prototype.getAddIncome = function() { //добавляем доходы
+        getAddIncome () { //добавляем доходы
 
             additionalIncomeItem.forEach((item) => {
             let itemValue = item.value.trim();
@@ -166,21 +166,21 @@ class AppData {
             });
         };
 
-        AppData.prototype.getExpensesMonth = function() {  //считаем расходы в месяц
+        getExpensesMonth () {  //считаем расходы в месяц
             for( let key in this.expenses)   this.expensesMonth += +this.expenses[key];
         };   
 
-        AppData.prototype.getBudget = function() { //получаем бюджет в месяц и в день
+        getBudget () { //получаем бюджет в месяц и в день
             this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth;
             this.budgetDay = Math.floor(this.budgetMonth / 30);
         };
 
-        AppData.prototype.getTargetMonth = function() { //вычисление времени(в месяцах) достижения цели
+        getTargetMonth () { //вычисление времени(в месяцах) достижения цели
 
             return  Math.ceil(targetAmount.value / this.budgetMonth);
         };
 
-        AppData.prototype.getStatusIncome = () => { //  оценка уровня дохода
+        getStatusIncome = () => { //  оценка уровня дохода
 
         return  (this.budgetDay < 0) ? 'Что то пошло не так' :
                 (this.budgetDay > 1200) ? 'У вас высокий уровень дохода' :
@@ -188,7 +188,7 @@ class AppData {
                 'К сожалению у вас уровень дохода ниже среднего';
         };
 
-        AppData.prototype.getInfoDeposit = function(){ //получение информации по депозиту
+        getInfoDeposit() { //получение информации по депозиту
             if(this.deposit){
                 do{
                     this.percentDeposit = prompt('Какой годовой процент депозита?');
@@ -200,16 +200,16 @@ class AppData {
 
         };
 
-        AppData.prototype.dinamicCalc = function(){ //вычисление при передвижении ползунка
+        dinamicCalc () { //вычисление при передвижении ползунка
 
             return periodAmount.innerHTML = periodSelect.value;
 
         };
 
-        AppData.prototype.calcPeriod = function(){ // вычисляем период
+        calcPeriod () { // вычисляем период
             return this.budgetMonth * periodSelect.value;
         };
-        AppData.prototype.cancel = function() { // возвращает программу в исходное состояние
+        cancel () { // возвращает программу в исходное состояние
             start.style.display = 'block';
             cancel.style.display = 'none';
     
@@ -255,14 +255,14 @@ class AppData {
 
         };
 
-        AppData.prototype.eventListeners = function() { // слушатели
+            eventListeners () { // слушатели
             start.addEventListener('click', this.start.bind(this));
             cancel.addEventListener('click', this.cancel.bind(this));
             expensesPlus.addEventListener('click', this.addExpensesBlock);
             incomePlus.addEventListener('click', this.addIncomeBlock);
             periodSelect.addEventListener('input', this.dinamicCalc);
         };
-    }
+    
 }
 const appData = new AppData();
 appData.eventListeners();
