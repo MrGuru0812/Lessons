@@ -1,10 +1,10 @@
 'use strict'
 
-const isString = (n) => {
+const isString = (n) => { //проверка на строку
     return (typeof n === "string"  && isNaN(parseFloat(n)) && !isFinite(n));
 }; 
 
-const isNumber = (n) => {
+const isNumber = (n) => { //проверка на число
     return !isNaN(parseFloat(n)) && isFinite(n);
 };
 
@@ -55,10 +55,9 @@ class AppData {
         this.budgetMonth = 0; // бюджет в месяц
         this.expensesMonth = 0; // расходы в месяц
     };
-
+        
         start () {   //запускает программу
-
-            if(salaryAmount.value === '') {
+            if(salaryAmount.value === '' ) {
                 start.removeEventListener('click', start);
             
             } else {
@@ -80,6 +79,7 @@ class AppData {
                     this.getAddIncome();
                     this.getInfoDeposit();
                     this.getBudget();
+
 
                     this.showResult();
             }
@@ -170,10 +170,12 @@ class AppData {
 
         getExpensesMonth () {  //считаем расходы в месяц
             for( let key in this.expenses)   this.expensesMonth += +this.expenses[key];
-        };   
+        };  
+        
 
-        getBudget () { //получаем бюджет в месяц и в день
-            const monthDeposit = this.moneyDeposit * (this.percentDeposit / 100);
+        getBudget () { //получаем бюджет в месяц и в день, а так же депозит
+            
+            const monthDeposit = Math.floor(this.moneyDeposit * (this.percentDeposit / 100));
             this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth + monthDeposit;
             this.budgetDay = Math.floor(this.budgetMonth / 30);
         };
@@ -181,14 +183,6 @@ class AppData {
         getTargetMonth () { //вычисление времени(в месяцах) достижения цели
 
             return  Math.ceil(targetAmount.value / this.budgetMonth);
-        };
-
-        getStatusIncome = () => { //  оценка уровня дохода
-
-        return  (this.budgetDay < 0) ? 'Что то пошло не так' :
-                (this.budgetDay > 1200) ? 'У вас высокий уровень дохода' :
-                (this.budgetDay >= 600 && this.budgetDay <= 1200) ? 'У вас средний уровень дохода' :
-                'К сожалению у вас уровень дохода ниже среднего';
         };
 
         dinamicCalc () { //вычисление при передвижении ползунка
@@ -246,22 +240,28 @@ class AppData {
 
         };
 
-        getInfoDeposit () {
+        getInfoDeposit () { //ифнормация о депозите
             if(this.deposit) {
+            
                 this.percentDeposit = depositPercent.value;
                 this.moneyDeposit = depositAmount.value;
             }
-        }
-
-        changePercent () {
+            
+        };
+        
+        changePercent () { //выбор банка
             const valueSelect = this.value;
             if (valueSelect === 'other') {
-                    //дз
-            } else {
-                depositPercent.value = valueSelect;
+                depositPercent.removeAttribute('disabled', true);
+                depositPercent.style.display = 'inline-block';
             }
-        }
-        depositHandler () {
+            else {
+                depositPercent.value = valueSelect;
+                depositPercent.style.display = 'inline-block';
+            }
+            
+        };
+        depositHandler () { // депозит
             if(depositCheck.checked) {
                 depositBank.style.display = 'inline-block';
                 depositAmount.style.display = 'inline-block';
@@ -275,7 +275,8 @@ class AppData {
                 this.deposit = false;
                 depositBank.removeEventListener('change', this.changePercent);
             }
-        }
+            
+        };
         eventListeners () { // слушатели
             start.addEventListener('click', this.start.bind(this));
             cancel.addEventListener('click', this.cancel.bind(this));
@@ -283,10 +284,20 @@ class AppData {
             incomePlus.addEventListener('click', this.addIncomeBlock);
             periodSelect.addEventListener('input', this.dinamicCalc);
             depositCheck.addEventListener('change', this.depositHandler.bind(this));
+            depositPercent.addEventListener('change', () => { 
+                if(depositPercent.value > 100 || depositPercent.value < 0 || !isNumber(depositPercent.value)){
+                    start.setAttribute( 'disabled', true);
+                    alert('Введите корректное значение в поле проценты!');
+                } else  {
+                    start.addEventListener('click', this.start.bind(this));
+                    start.removeAttribute('disabled', true);
+                }
+            });    
         };
     
 }
 const appData = new AppData();
 appData.eventListeners();
+
 
 
