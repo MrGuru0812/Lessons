@@ -27,17 +27,16 @@ const   additionalIncomeItem = document.querySelectorAll('.additional_income-ite
         targetAmount = document.querySelector('.target-amount'),
         periodSelect = document.querySelector('.period-select'),
         periodAmount = document.querySelector('.period-amount'),
-        depositCheck = document.getElementById('deposit-check'),
         depositBank =  document.querySelector('.deposit-bank'),
         calc = document.querySelector('.calc'),
         data = document.querySelector('.data'),
         control = document.querySelector('.control');
-    
+        
 let incomeItem = document.querySelectorAll('.income-items'),
     expensesItems = document.querySelectorAll('.expenses-items'),
     incomePlus = document.getElementsByTagName('button')[0],
-    expensesPlus = document.getElementsByTagName('button')[1];
-    
+    expensesPlus = document.getElementsByTagName('button')[1],
+    depositCheck = document.getElementById('deposit-check');
 class AppData {
     
     constructor() {
@@ -210,7 +209,6 @@ class AppData {
             this.budgetDay = 0; // бюджет в день
             this.budgetMonth = 0; // бюджет в месяц
             this.expensesMonth = 0; // расходы в месяц
-    
             const elem = document.querySelectorAll('input');
 
             elem.forEach((item) => {
@@ -237,7 +235,8 @@ class AppData {
                 }
     
             }
-
+            depositCheck.checked = false;
+            depositBank.value = '';
         };
 
         getInfoDeposit () { //ифнормация о депозите
@@ -284,13 +283,14 @@ class AppData {
             incomePlus.addEventListener('click', this.addIncomeBlock);
             periodSelect.addEventListener('input', this.dinamicCalc);
             depositCheck.addEventListener('change', this.depositHandler.bind(this));
-            depositPercent.addEventListener('change', () => { 
+            depositPercent.addEventListener('input', () => { 
                 if(depositPercent.value > 100 || depositPercent.value < 0 || !isNumber(depositPercent.value)){
                     start.setAttribute( 'disabled', true);
                     alert('Введите корректное значение в поле проценты!');
                 } else  {
                     start.addEventListener('click', this.start.bind(this));
                     start.removeAttribute('disabled', true);
+                    
                 }
             });    
         };
