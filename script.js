@@ -236,7 +236,12 @@ class AppData {
     
             }
             depositCheck.checked = false;
+            depositBank.style.display = 'none';
             depositBank.value = '';
+            depositPercent.style.display = 'none';
+            depositAmount.style.display = 'none';
+
+
         };
 
         getInfoDeposit () { //ифнормация о депозите
